@@ -1,5 +1,6 @@
 package com.vinicius.financeaiapi.controller;
 
+import com.vinicius.financeaiapi.dto.ExpenseRequest;
 import com.vinicius.financeaiapi.model.Expense;
 import com.vinicius.financeaiapi.repository.ExpenseRepository;
 import com.vinicius.financeaiapi.service.ExpenseService;
@@ -21,12 +22,13 @@ public class ExpenseController {
     }
 
     @PostMapping
-    public Expense create(@RequestBody @Valid Expense expense) {
+    public Expense create(@RequestBody @Valid ExpenseRequest request) {
 
-        String category = service.classify(expense.getDescription());
-        expense.setCategory(category);
+        Expense expense = new Expense();
+        expense.setDescription(request.getDescription());
+        expense.setAmount(request.getAmount());
 
-        return repository.save(expense);
+        return service.create(expense);
     }
 
     @GetMapping
