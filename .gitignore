@@ -43,4 +43,4 @@ target/
 *.log
 
 # Config sensível
-application.properties
+src/main/resources/application.properties
